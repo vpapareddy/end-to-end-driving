@@ -123,7 +123,7 @@ class ShardFeatureExtractor:
             print(f"Saved cache to {cache_path}")
 
 # -----------------------------------------
-# Cache-Based Dataset (unchanged)
+# Cache-Based Dataset
 # -----------------------------------------
 class CacheDataset(Dataset):
     def __init__(self, cache_files):
