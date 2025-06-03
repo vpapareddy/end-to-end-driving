@@ -24,7 +24,7 @@ This project targets the Waymo Open Dataset (WOD) Vision-based End-to-End Drivin
   - Agent’s historical poses
   - Routing waypoints
 - **Long-Tail Focus:**
-  - Events <0.003% frequency in daily driving (e.g., marathons, sudden obstacles)
+  - Events <0.003% frequency in daily driving (e.g., construction, sudden obstacles)
   - Designed to stress-test robustness and generalization
 
 ## Key Features
@@ -51,11 +51,10 @@ This project targets the Waymo Open Dataset (WOD) Vision-based End-to-End Drivin
 ## Training
 ```bash
 # Example: train on multi-view ResNet-50 + MLP head
-python train.py   --config configs/config.yaml   --split train   --epochs 50   --batch_size 8   --lr 1e-4
+python train.py   --config configs/config.yaml   --split train   --epochs 50   --batch_size 16   --lr 1e-4
 ```
 - **Key config options** (in `configs/config.yaml`):
   - `model.backbone`: `resnet50_multiview`
-  - `model.head`: `mlp_waypoint_predictor`
   - `data.cache`: `true` (enable TFRecord caching)
   - `optimizer`: `AdamW`, `lr`, `weight_decay`
 
@@ -65,17 +64,14 @@ python train.py   --config configs/config.yaml   --split train   --epochs 50   -
 python evaluate.py   --config configs/config.yaml   --split val
 ```
 - **Outputs:**
-  - `logs/ade_val.txt` → numeric ADE (3.9 m target)
-  - `logs/rater_feedback.json` → simulated human-rating feedback
+  - numeric ADE (3.9 m target)
+  - simulated human-rating feedback scores
 
 ## Offline Inference / Edge Deployment
-- **Generate TF-Lite / ONNX:**
+- **Generate TF-Lite**
   ```bash
-  python export_model.py     --model checkpoints/best.pt     --format onnx     --output export/waypoint_model.onnx
+  python export_model.py     --model checkpoints/best.pth
   ```
-- **Edge GPU Inference Example (Jetson):**
-  - Load `export/waypoint_model.onnx` with TensorRT and run on 8-camera input stream.
-  - Use `scripts/edge_inference.py` to benchmark latency (< 50 ms per frame).
 
 ## Results
 | Metric           | Baseline (ADE) | This Model       | Improvement |
