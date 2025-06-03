@@ -83,3 +83,14 @@ python evaluate.py   --config configs/config.yaml   --split val
 | Val ADE (5 s)    | 12.2 m         | 3.9 m            | –68%        |
 | Rater Feedback   | 5.15           | 6.47             | +25%        |
 
+## Usage Example
+1. **Train**:
+   ```bash
+   python src/train.py --config configs/config.yaml --split train
+   ```
+2. **Validate**:
+   ```bash
+   python src/evaluate.py --config configs/config.yaml --split val
+   ```
+
+
