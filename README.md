@@ -1,5 +1,4 @@
-## Project Title
-**WOD Vision-based End-to-End Driving**
+## WOD Vision-based End-to-End Driving
 
 ## Overview
 Implement and evaluate an end-to-end autonomous driving pipeline on Waymo’s long-tail dataset.
